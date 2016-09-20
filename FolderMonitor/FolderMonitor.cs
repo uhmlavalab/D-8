@@ -14,8 +14,8 @@ class FolderMonitor {
 
     private FileSystemWatcher watcher;
     private String directorySourcePath = "C:\\Users\\LAVA\\Desktop\\DestinyDropbox";
-    private const String[] directoryDestinationPathList = { "Z:\\", "Y:\\", "X:\\", "W:\\", "V:\\", "U:\\", "T:\\", "S:\\" };
-
+    private String[] directoryDestinationPathList = { "Z:\\", "Y:\\", "X:\\", "W:\\", "V:\\", "U:\\", "T:\\", "S:\\" };
+    
     /// <summary>
     /// Empty constructor, not used.
     /// </summary>
@@ -113,7 +113,7 @@ class FolderMonitor {
         FileAttributes attr = File.GetAttributes(fileSource);
         if (IsFileInRootFolder(fileSource)) {
             if (attr.HasFlag(FileAttributes.Directory)) {
-                DirectoryCopy(fileSource, directoryDestinationPath, true);
+                DirectoryCopy(fileSource, directoryDestinationPath, true, true);
             }
             else {
                 bool fileInUse = true;
@@ -155,14 +155,21 @@ class FolderMonitor {
     /// <param name="sourceDirName">Path to the directory to be copied.</param>
     /// <param name="destDirName">Path to destination directory.</param>
     /// <param name="copySubDirs">Copy subdirectories if true.</param>
-    private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs) {
+    private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, bool keepFolderName) {
         // Get the subdirectories for the specified directory.
         DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
         DirectoryInfo[] dirs = dir.GetDirectories();
-  
-        String fileName = sourceDirName.Substring(sourceDirName.LastIndexOf("\\") + 1);
-        String fullFolderName = destDirName + fileName;
+        String fullFolderName;
+        if (keepFolderName == true) {
+            String fileName = sourceDirName.Substring(sourceDirName.LastIndexOf("\\") + 1);
+            fullFolderName = destDirName + fileName;
+          
+        }
+        else {
+            fullFolderName = destDirName;
+        }
+
         Directory.CreateDirectory(fullFolderName);
 
         // Get the files in the directory and copy them to the new location.
@@ -187,7 +194,7 @@ class FolderMonitor {
         if (copySubDirs) {
             foreach (DirectoryInfo subdir in dirs) {
                 string temppath = Path.Combine(fullFolderName, subdir.Name);
-                DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                DirectoryCopy(subdir.FullName, temppath, copySubDirs, false);
             }
         }
 
