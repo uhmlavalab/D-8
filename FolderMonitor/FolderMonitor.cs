@@ -238,7 +238,7 @@ class FolderMonitor {
                     DirectoryDelete(directoryDestinationPath + fileName);
                     Console.WriteLine("Deleted " + fileSource);
                 } else {
-                    if (!isFileLocked(new FileInfo(fileSource)){
+                    if (!isFileLocked(new FileInfo(fileSource))){
                         File.Delete(directoryDestinationPath + fileName);
                         Console.WriteLine("Delete file " + fileSource);
                     } else {
