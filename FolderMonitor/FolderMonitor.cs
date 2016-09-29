@@ -65,7 +65,7 @@ class FolderMonitor {
     // Define the event handlers.
     private void OnChanged(object source, FileSystemEventArgs e) {
         // Specify what is done when a file is changed, created, or deleted.
-        Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
+        //Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
         CopyFileRoutine(e.FullPath);
 
     }
@@ -75,7 +75,7 @@ class FolderMonitor {
     }
 
     private void OnDeleted(object source, FileSystemEventArgs e) {
-        Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
+        //Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
         DeleteFile(e.FullPath);
     }
 
@@ -238,14 +238,19 @@ class FolderMonitor {
                     DirectoryDelete(directoryDestinationPath + fileName);
                     Console.WriteLine("Deleted " + fileSource);
                 } else {
-
-                    File.Delete(directoryDestinationPath + fileName);
-                    Console.WriteLine("Delete file " + fileSource);
+                    if (!isFileLocked(new FileInfo(fileSource)){
+                        File.Delete(directoryDestinationPath + fileName);
+                        Console.WriteLine("Delete file " + fileSource);
+                    } else {
+                        Console.WriteLine(fileSource + " is locked. Cannot delete.");
+                    }
                 }
             } catch (FileNotFoundException) {
                 Console.WriteLine("Delete error. Could not find " + fileSource + " Skipping.");
             } catch (DirectoryNotFoundException) {
                 Console.WriteLine("Delete error. Could not find " + fileSource + " Skipping.");
+            } catch(UnauthorizedAccessException) {
+                Console.WriteLine("Unable to access " + fileSource + " for deletion. Skipping.");
             }
         
         }
@@ -261,10 +266,16 @@ class FolderMonitor {
 
         foreach (FileInfo file in dir.GetFiles()) {
             try {
-                file.Delete();
+                if (!isFileLocked(file)) {
+                    file.Delete();
+                } else {
+                    Console.WriteLine("Unable to access " + file + " for deletion. Skipping.");
+                }
             }
             catch (FileNotFoundException) {
                 Console.WriteLine("Delete error. Could not find " + file + " Skipping.");
+            } catch (UnauthorizedAccessException) {
+                Console.WriteLine("Unable to access " + file.ToString() + " for deletion. Skipping.");
             }
         }
         try {
