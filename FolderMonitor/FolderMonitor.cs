@@ -112,6 +112,11 @@ class FolderMonitor {
     private void CopyFile(String fileSource, int destinationDirectoryIndex) {
         String directoryDestinationPath = directoryDestinationPathList[destinationDirectoryIndex];
         FileAttributes attr = File.GetAttributes(fileSource);
+        if (!Directory.Exists(directoryDestinationPath)) {
+            Console.WriteLine("Cannot access " + directoryDestinationPath + " Skipping.");
+            return;
+        }
+
         if (IsFileInRootFolder(fileSource)) {
             if (attr.HasFlag(FileAttributes.Directory)) {
                 DirectoryCopy(fileSource, directoryDestinationPath, true, true);
