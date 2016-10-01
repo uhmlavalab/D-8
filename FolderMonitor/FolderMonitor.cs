@@ -58,6 +58,7 @@ class FolderMonitor {
         watcher.EnableRaisingEvents = true;
 
         // Wait for the user to quit the program.
+        Console.WriteLine("Usage: Copy files/directory to DestinyDropbox on the Desktop and wait.");
         Console.WriteLine("Press \'q\' to quit.");
         while (Console.Read() != 'q') ;
     }
