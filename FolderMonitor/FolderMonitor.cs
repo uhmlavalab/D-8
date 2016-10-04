@@ -16,10 +16,8 @@ namespace FolderMonitor {
     class FolderMonitor {
 
         private FileSystemWatcher watcher;
-        //private String directorySourcePath = "C:\\Users\\LAVA\\Desktop\\DestinyDropbox";
-        //private String[] directoryDestinationPathList = { "Z:\\", "Y:\\", "X:\\", "W:\\", "V:\\", "U:\\", "T:\\", "S:\\" };
-        private String directorySourcePath = "C:\\Users\\Jack\\Desktop\\DestinyDropbox";
-        private String[] directoryDestinationPathList = { "C:\\Users\\Jack\\Desktop\\test\\" };
+        private String directorySourcePath = "C:\\Users\\LAVA\\Desktop\\DestinyDropbox";
+        private String[] directoryDestinationPathList = { "Z:\\", "Y:\\", "X:\\", "W:\\", "V:\\", "U:\\", "T:\\", "S:\\" };
         private ArrayList newFileList = new ArrayList();
 
         /// <summary>
@@ -44,7 +42,6 @@ namespace FolderMonitor {
         /// </summary>
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public void Run() {
-
             watcher = new FileSystemWatcher();
             watcher.Path = directorySourcePath;
 
@@ -62,42 +59,10 @@ namespace FolderMonitor {
 
             // Begin watching.
             watcher.EnableRaisingEvents = true;
-
-            // Wait for the user to quit the program.
-            Console.WriteLine("Usage: Copy files/directory to DestinyDropbox on the Desktop and wait.");
-            Console.WriteLine("Press \'q\' to quit.");
-            while (Console.Read() != 'q') ;
-        }
-
-        public void Run2() {
-            watcher = new FileSystemWatcher();
-            watcher.Path = directorySourcePath;
-
-            watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.LastWrite | NotifyFilters.LastAccess;
-
-            watcher.Filter = "";
-            watcher.IncludeSubdirectories = true;
-
-            // Add event handlers.
-            watcher.Changed += new FileSystemEventHandler(OnChanged2);
-            watcher.Created += new FileSystemEventHandler(OnCreated);
-            watcher.Deleted += new FileSystemEventHandler(OnDeleted);
-            watcher.Renamed += new RenamedEventHandler(OnRenamed);
-
-
-            // Begin watching.
-            watcher.EnableRaisingEvents = true;
         }
 
         // Define the event handlers.
         private void OnChanged(object source, FileSystemEventArgs e) {
-            // Specify what is done when a file is changed, created, or deleted.
-            //Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-            CopyFileRoutine(e.FullPath);
-
-        }
-
-        private void OnChanged2(object source, FileSystemEventArgs e) {
             if (IsFileInRootFolder(e.FullPath)) {
                 if (!newFileList.Contains(e.FullPath)) {
                     newFileList.Add(e.FullPath);
@@ -183,7 +148,7 @@ namespace FolderMonitor {
         /// Checks to see if a file is not in the root directory.
         /// </summary>
         /// <param name="fileSource">Path to file.</param>
-        /// <returns>True if in another folder besides root. False otherwise.</returns>
+        /// <returns>True if in another foledr besides root. False otherwise.</returns>
         private bool IsFileInRootFolder(String fileSource) {
             String fileFolder = fileSource.Substring(0, fileSource.LastIndexOf("\\"));
             if (String.Compare(directorySourcePath, fileFolder, true) == 0) {
@@ -324,6 +289,10 @@ namespace FolderMonitor {
             } catch (DirectoryNotFoundException) {
                 Console.WriteLine("Delete error. Could not find " + deleteDir + " Skipping.");
             }
+        }
+
+        public ArrayList getNewFileList() {
+            return newFileList;
         }
     }
 }
