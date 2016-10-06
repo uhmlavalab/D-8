@@ -16,12 +16,12 @@ namespace FolderMonitor {
     class FolderMonitor {
 
         private FileSystemWatcher watcher;
-        private String directorySourcePath = "C:\\Users\\LAVA\\Desktop\\DestinyDropbox";
-        private String[] directoryDestinationPathList = { "Z:\\", "Y:\\", "X:\\", "W:\\", "V:\\", "U:\\", "T:\\", "S:\\" };
+        //private String directorySourcePath = "C:\\Users\\LAVA\\Desktop\\DestinyDropbox";
+        //private String[] directoryDestinationPathList = { "Z:\\", "Y:\\", "X:\\", "W:\\", "V:\\", "U:\\", "T:\\", "S:\\" };
 
 
-        //private String directorySourcePath = "C:\\Users\\Jack\\Desktop\\DestinyDropbox";
-        //private String[] directoryDestinationPathList = { "C:\\Users\\Jack\\Desktop\\test\\" };
+        private String directorySourcePath = "C:\\Users\\Jack\\Desktop\\DestinyDropbox";
+        private String[] directoryDestinationPathList = { "C:\\Users\\Jack\\Desktop\\test\\" };
 
         private ArrayList newFileList = new ArrayList();
 
@@ -93,9 +93,9 @@ namespace FolderMonitor {
         public bool PerformSync() {
             foreach(String file in newFileList) {
                 CopyFileRoutine(file);
-                //newFileList.Remove(file);
             }
 
+            newFileList.Clear();
             return true;
         }
 
@@ -105,15 +105,15 @@ namespace FolderMonitor {
         /// <param name="fileSource">Path to source file/directory.</param>
         private void CopyFileRoutine(String fileSource) {
             Task copy0 = Task.Factory.StartNew(() => CopyFile(fileSource, 0));
-            Task copy1 = Task.Factory.StartNew(() => CopyFile(fileSource, 1));
-            Task copy2 = Task.Factory.StartNew(() => CopyFile(fileSource, 2));
-            Task copy3 = Task.Factory.StartNew(() => CopyFile(fileSource, 3));
-            Task copy4 = Task.Factory.StartNew(() => CopyFile(fileSource, 4));
-            Task copy5 = Task.Factory.StartNew(() => CopyFile(fileSource, 5));
-            Task copy6 = Task.Factory.StartNew(() => CopyFile(fileSource, 6));
-            Task copy7 = Task.Factory.StartNew(() => CopyFile(fileSource, 7));
+            //Task copy1 = Task.Factory.StartNew(() => CopyFile(fileSource, 1));
+            //Task copy2 = Task.Factory.StartNew(() => CopyFile(fileSource, 2));
+            //Task copy3 = Task.Factory.StartNew(() => CopyFile(fileSource, 3));
+            //Task copy4 = Task.Factory.StartNew(() => CopyFile(fileSource, 4));
+            //Task copy5 = Task.Factory.StartNew(() => CopyFile(fileSource, 5));
+            //Task copy6 = Task.Factory.StartNew(() => CopyFile(fileSource, 6));
+            //Task copy7 = Task.Factory.StartNew(() => CopyFile(fileSource, 7));
 
-            Task.WaitAll(copy0, copy1, copy2, copy3, copy4, copy5, copy6, copy7);
+            //Task.WaitAll(copy0, copy1, copy2, copy3, copy4, copy5, copy6, copy7);
         }
 
         /// <summary>

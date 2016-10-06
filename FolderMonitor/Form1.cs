@@ -86,15 +86,17 @@ namespace FolderMonitor {
             BackgroundWorker worker = sender as BackgroundWorker;
             while (!worker.CancellationPending) {
                 ArrayList temp = monitor.getNewFileList();
+                String list = "";
 
                 for (int i = 0; i < temp.Count; i++) {
-                    FileListSetText(temp[i].ToString());
+                    list += temp[i].ToString();
+                    list += " ";
                 }
+                FileListSetText(list);
             }
         }
 
         delegate void SetTextCallback(string text);
-
         private void FileListSetText(string text) {
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
