@@ -15,6 +15,7 @@ namespace FolderMonitor {
         FolderMonitor monitor;
         BackgroundWorker statusBW;
         BackgroundWorker fileBW;
+        ArrayList fileListHistory;
 
         public Form1() {
             InitializeComponent();
@@ -28,7 +29,9 @@ namespace FolderMonitor {
             fileBW = new BackgroundWorker();
             fileBW.WorkerReportsProgress = true;
             fileBW.DoWork += new DoWorkEventHandler(fileBW_DoWork);
-           
+
+            FileListBox.ReadOnly = true;
+            fileListHistory = new ArrayList();
 
             monitor = new FolderMonitor();
             monitor.Run();
@@ -85,36 +88,56 @@ namespace FolderMonitor {
         private void fileBW_DoWork(object sender, DoWorkEventArgs e) {
             BackgroundWorker worker = sender as BackgroundWorker;
             while (!worker.CancellationPending) {
+                
                 ArrayList temp = monitor.getNewFileList();
+
+              
+          
                 String list = "";
 
                 for (int i = 0; i < temp.Count; i++) {
                     list += temp[i].ToString();
-                    list += " ";
+                    list += "\r\n";
                 }
-                FileListSetText(list);
+                FileListBoxSetText(list);
             }
         }
 
+        //delegate void SetTextCallback(string text);
+        //private void FileListSetText(string text) {
+        //    // InvokeRequired required compares the thread ID of the
+        //    // calling thread to the thread ID of the creating thread.
+        //    // If these threads are different, it returns true.
+        //    if (this.FileList.InvokeRequired) {
+        //        SetTextCallback d = new SetTextCallback(FileListSetText);
+        //        this.Invoke(d, new object[] { text });
+        //    }
+        //    else {
+        //        this.FileList.Text = text;
+        //    }
+        //}
+
         delegate void SetTextCallback(string text);
-        private void FileListSetText(string text) {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
+        private void FileListBoxSetText(string text) {
             if (this.FileList.InvokeRequired) {
-                SetTextCallback d = new SetTextCallback(FileListSetText);
+                SetTextCallback d = new SetTextCallback(FileListBoxSetText);
                 this.Invoke(d, new object[] { text });
             }
             else {
-                this.FileList.Text = text;
+                this.FileListBox.Text = text;
             }
         }
+
 
         private void Form1_Load(object sender, EventArgs e) {
 
         }
 
         private void FileList_Click(object sender, EventArgs e) {
+
+        }
+
+        private void FileListBox_TextChanged(object sender, EventArgs e) {
 
         }
     }
