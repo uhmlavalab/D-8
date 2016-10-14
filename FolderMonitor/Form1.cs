@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace FolderMonitor {
         BackgroundWorker statusBW;
         BackgroundWorker fileBW;
         ArrayList fileListHistory;
+        DialogResult dialogResult;
 
         public Form1() {
             InitializeComponent();
@@ -37,7 +39,8 @@ namespace FolderMonitor {
             monitor.Run();
 
             FileListBox.BackColor = Color.White;
-           
+
+
             fileBW.RunWorkerAsync();
             
         }
@@ -52,15 +55,14 @@ namespace FolderMonitor {
 
         }
 
-        private void status_Click(object sender, EventArgs e) {
-
-        }
+       
 
         private void statusBW_DoWork(object sender, DoWorkEventArgs e) {
             this.UseWaitCursor = true;
             BackgroundWorker worker = sender as BackgroundWorker;
             worker.ReportProgress(0);
-            monitor.PerformSync();
+            //monitor.PerformSync();
+            monitor.PerformSync(folderBrowserDialog1.SelectedPath);
             this.UseWaitCursor = false;
         }
         private void statusBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
@@ -83,18 +85,27 @@ namespace FolderMonitor {
         private void fileBW_DoWork(object sender, DoWorkEventArgs e) {
             BackgroundWorker worker = sender as BackgroundWorker;
             while (!worker.CancellationPending) {
-                
-                ArrayList temp = monitor.getNewFileList();
+
+
+                if(dialogResult == DialogResult.OK) {
+                    ArrayList temp = new ArrayList();
+
+                    string foldername = folderBrowserDialog1.SelectedPath;
+                    foreach (string directory in Directory.GetDirectories(foldername)) {
+                        temp.Add(directory);
+
+                    }
+
+                    String list = "";
+
+                    for (int i = 0; i < temp.Count; i++) {
+                        list += temp[i].ToString();
+                        list += "\r\n";
+                    }
+                    FileListBoxSetText(list);
+                }
 
               
-          
-                String list = "";
-
-                for (int i = 0; i < temp.Count; i++) {
-                    list += temp[i].ToString();
-                    list += "\r\n";
-                }
-                FileListBoxSetText(list);
             }
         }
 
@@ -119,6 +130,14 @@ namespace FolderMonitor {
 
         private void FileListBox_TextChanged(object sender, EventArgs e) {
 
+        }
+
+        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e) {
+
+        }
+
+        private void browsefolder_Click(object sender, EventArgs e) {
+            dialogResult = folderBrowserDialog1.ShowDialog();
         }
     }
 

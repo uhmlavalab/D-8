@@ -58,7 +58,6 @@ namespace FolderMonitor {
             watcher.Path = directorySourcePath;
 
             watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.LastWrite | NotifyFilters.LastAccess;
-
             watcher.Filter = "";
             watcher.IncludeSubdirectories = true;
 
@@ -78,29 +77,44 @@ namespace FolderMonitor {
             if (IsFileInRootFolder(e.FullPath)) {
                 if (!newFileList.Contains(e.FullPath)) {
                     newFileList.Add(e.FullPath);
-                }
+                } 
             }
         }
 
         private void OnCreated(object source, FileSystemEventArgs e) {
-
+            if (IsFileInRootFolder(e.FullPath)) {
+                if (!newFileList.Contains(e.FullPath)) {
+                    newFileList.Add(e.FullPath);
+                }
+            }
         }
 
         private void OnDeleted(object source, FileSystemEventArgs e) {
             //Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-            DeleteFile(e.FullPath);
+            DeleteFileRoutine(e.FullPath);
         }
 
         private void OnRenamed(object source, RenamedEventArgs e) {
-            // Specify what is done when a file is renamed.
-            Console.WriteLine("File: {0} renamed to {1}", e.OldFullPath, e.FullPath);
-            CopyFileRoutine(e.FullPath);
+            if (IsFileInRootFolder(e.FullPath)) {
+                if (!newFileList.Contains(e.FullPath)) {
+                    newFileList.Add(e.FullPath);
+                }
+            }
         }
 
         public bool PerformSync() {
             foreach(String file in newFileList) {
                 CopyFileRoutine(file);
             }
+
+            newFileList.Clear();
+            return true;
+        }
+
+        public bool PerformSync(String dir) {
+           
+                CopyFileRoutine(dir);
+            
 
             newFileList.Clear();
             return true;
@@ -120,6 +134,21 @@ namespace FolderMonitor {
                 Task copy5 = Task.Factory.StartNew(() => CopyFile(fileSource, 5));
                 Task copy6 = Task.Factory.StartNew(() => CopyFile(fileSource, 6));
                 Task copy7 = Task.Factory.StartNew(() => CopyFile(fileSource, 7));
+
+                Task.WaitAll(copy0, copy1, copy2, copy3, copy4, copy5, copy6, copy7);
+            }
+        }
+
+        private void DeleteFileRoutine(String fileSource) {
+            Task copy0 = Task.Factory.StartNew(() => DeleteFile(fileSource, 0));
+            if (!DEBUG) {
+                Task copy1 = Task.Factory.StartNew(() => DeleteFile(fileSource, 1));
+                Task copy2 = Task.Factory.StartNew(() => DeleteFile(fileSource, 2));
+                Task copy3 = Task.Factory.StartNew(() => DeleteFile(fileSource, 3));
+                Task copy4 = Task.Factory.StartNew(() => DeleteFile(fileSource, 4));
+                Task copy5 = Task.Factory.StartNew(() => DeleteFile(fileSource, 5));
+                Task copy6 = Task.Factory.StartNew(() => DeleteFile(fileSource, 6));
+                Task copy7 = Task.Factory.StartNew(() => DeleteFile(fileSource, 7));
 
                 Task.WaitAll(copy0, copy1, copy2, copy3, copy4, copy5, copy6, copy7);
             }
@@ -154,6 +183,20 @@ namespace FolderMonitor {
 
                 }
             } else {
+                if (attr.HasFlag(FileAttributes.Directory)) {
+                    DirectoryCopy(fileSource, directoryDestinationPath, true, true);
+                } else {
+                    bool fileInUse = true;
+                    while (fileInUse) {
+                        if (!isFileLocked(new FileInfo(fileSource))) {
+                            String fileName = fileSource.Substring(fileSource.LastIndexOf("\\") + 1);
+                            File.Copy(fileSource, directoryDestinationPath + fileName, true);
+                            fileInUse = false;
+                        }
+                        Console.WriteLine(fileSource + " Is locked");
+                    }
+
+                }
                 return;
             }
             Console.WriteLine("Copied file " + fileSource);
@@ -251,9 +294,10 @@ namespace FolderMonitor {
         /// Deletes a directory or file in the destination folder given a path from the source folder.
         /// </summary>
         /// <param name="fileSource">Path to the file/directory.</param>
-        private void DeleteFile(String fileSource) {
-            foreach (String directoryDestinationPath in directoryDestinationPathList) {
-                String fileName = fileSource.Substring(directorySourcePath.Length);
+        private void DeleteFile(String fileSource, int destinationDirectoryIndex) {
+            String directoryDestinationPath = directoryDestinationPathList[destinationDirectoryIndex];
+
+            String fileName = fileSource.Substring(directorySourcePath.Length);
                 try {
                     FileAttributes attr = File.GetAttributes(directoryDestinationPath + fileName);
                     if (attr.HasFlag(FileAttributes.Directory)) {
@@ -275,7 +319,7 @@ namespace FolderMonitor {
                     Console.WriteLine("Unable to access " + fileSource + " for deletion. Skipping.");
                 }
 
-            }
+            
 
         }
 
