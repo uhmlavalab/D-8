@@ -47,7 +47,7 @@
             this.Status.Name = "Status";
             this.Status.Size = new System.Drawing.Size(466, 68);
             this.Status.TabIndex = 1;
-            this.Status.Text = "Ready to sync.";
+            this.Status.Text = "Status: Ready to sync.";
             this.Status.Click += new System.EventHandler(this.status_Click);
             // 
             // FileList
@@ -56,7 +56,7 @@
             this.FileList.Name = "FileList";
             this.FileList.Size = new System.Drawing.Size(224, 29);
             this.FileList.TabIndex = 2;
-            this.FileList.Text = "File List";
+            this.FileList.Text = "Files found to sync:";
             this.FileList.Click += new System.EventHandler(this.FileList_Click);
             // 
             // FileListBox

@@ -36,23 +36,19 @@ namespace FolderMonitor {
             monitor = new FolderMonitor();
             monitor.Run();
 
+            FileListBox.BackColor = Color.White;
            
             fileBW.RunWorkerAsync();
             
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            // this.UseWaitCursor = true;
-            // label1.Text = "Please wait, currently syncing.";
-            // monitor.PerformSync();
-            // System.Threading.Thread.Sleep(5000);
-            //label1.Text = "Sync complete. Ready for next files";
-            // this.UseWaitCursor = false;
-
             if (!statusBW.IsBusy) {
+                button1.Enabled = false;
                 statusBW.RunWorkerAsync();
 
             }
+            button1.Enabled = true;
 
         }
 
@@ -64,7 +60,6 @@ namespace FolderMonitor {
             this.UseWaitCursor = true;
             BackgroundWorker worker = sender as BackgroundWorker;
             worker.ReportProgress(0);
-            this.Status.Text = ("Syncing. Please wait.");
             monitor.PerformSync();
             this.UseWaitCursor = false;
         }
@@ -78,7 +73,7 @@ namespace FolderMonitor {
             }
 
             else {
-                this.Status.Text = "Done. Ready for next file sync.";
+                this.Status.Text = "Status: Done. Ready for next file sync.";
             }
         }
         private void statusBW_ProgressChanged(object sender, ProgressChangedEventArgs e) {
@@ -103,20 +98,6 @@ namespace FolderMonitor {
             }
         }
 
-        //delegate void SetTextCallback(string text);
-        //private void FileListSetText(string text) {
-        //    // InvokeRequired required compares the thread ID of the
-        //    // calling thread to the thread ID of the creating thread.
-        //    // If these threads are different, it returns true.
-        //    if (this.FileList.InvokeRequired) {
-        //        SetTextCallback d = new SetTextCallback(FileListSetText);
-        //        this.Invoke(d, new object[] { text });
-        //    }
-        //    else {
-        //        this.FileList.Text = text;
-        //    }
-        //}
-
         delegate void SetTextCallback(string text);
         private void FileListBoxSetText(string text) {
             if (this.FileList.InvokeRequired) {
@@ -127,7 +108,6 @@ namespace FolderMonitor {
                 this.FileListBox.Text = text;
             }
         }
-
 
         private void Form1_Load(object sender, EventArgs e) {
 
