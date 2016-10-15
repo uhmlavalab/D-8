@@ -38,12 +38,12 @@ namespace FolderMonitor {
 
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private void upload_Click(object sender, EventArgs e) {
             if (!statusBW.IsBusy) {
-                button1.Enabled = false;
+                Upload.Enabled = false;
                 statusBW.RunWorkerAsync();
             }
-            button1.Enabled = true;
+            Upload.Enabled = true;
         }
 
         private void statusBW_DoWork(object sender, DoWorkEventArgs e) {

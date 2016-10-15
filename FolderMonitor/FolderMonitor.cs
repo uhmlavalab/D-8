@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace FolderMonitor {
     class FolderMonitor {
 
-        private const bool DEBUG = true;
+        private const bool DEBUG = false;
 
         private FileSystemWatcher watcher;
 

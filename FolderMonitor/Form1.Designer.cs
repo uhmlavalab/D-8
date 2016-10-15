@@ -23,7 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.button1 = new System.Windows.Forms.Button();
+            this.Upload = new System.Windows.Forms.Button();
             this.Status = new System.Windows.Forms.Label();
             this.FileList = new System.Windows.Forms.Label();
             this.FileListBox = new System.Windows.Forms.TextBox();
@@ -32,16 +32,16 @@
             this.browsefolder = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // Upload
             // 
-            this.button1.Location = new System.Drawing.Point(31, 257);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(640, 57);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Upload";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Upload.Location = new System.Drawing.Point(31, 257);
+            this.Upload.Margin = new System.Windows.Forms.Padding(4);
+            this.Upload.Name = "Upload";
+            this.Upload.Size = new System.Drawing.Size(640, 57);
+            this.Upload.TabIndex = 0;
+            this.Upload.Text = "Upload";
+            this.Upload.UseVisualStyleBackColor = true;
+            this.Upload.Click += new System.EventHandler(this.upload_Click);
             // 
             // Status
             // 
@@ -103,7 +103,7 @@
             this.Controls.Add(this.FileListBox);
             this.Controls.Add(this.FileList);
             this.Controls.Add(this.Status);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Upload);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "FolderSync";
@@ -114,7 +114,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Upload;
         private System.Windows.Forms.Label Status;
         private System.Windows.Forms.Label FileList;
         private System.Windows.Forms.TextBox FileListBox;
