@@ -34,52 +34,49 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(33, 26);
+            this.button1.Location = new System.Drawing.Point(31, 257);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(480, 46);
+            this.button1.Size = new System.Drawing.Size(640, 57);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Sync";
+            this.button1.Text = "Upload";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Status
             // 
-            this.Status.Location = new System.Drawing.Point(31, 99);
-            this.Status.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Status.Location = new System.Drawing.Point(693, 105);
             this.Status.Name = "Status";
-            this.Status.Size = new System.Drawing.Size(350, 55);
+            this.Status.Size = new System.Drawing.Size(298, 75);
             this.Status.TabIndex = 1;
-            this.Status.Text = "Status: Ready to sync.";
+            this.Status.Text = "Status: Ready to upload.";
             // 
             // FileList
             // 
-            this.FileList.Location = new System.Drawing.Point(31, 154);
-            this.FileList.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.FileList.Location = new System.Drawing.Point(28, 118);
             this.FileList.Name = "FileList";
-            this.FileList.Size = new System.Drawing.Size(168, 24);
+            this.FileList.Size = new System.Drawing.Size(224, 30);
             this.FileList.TabIndex = 2;
-            this.FileList.Text = "Files found to sync:";
-            this.FileList.Click += new System.EventHandler(this.FileList_Click);
+            this.FileList.Text = "Folder to Upload:";
             // 
             // FileListBox
             // 
-            this.FileListBox.Location = new System.Drawing.Point(23, 180);
-            this.FileListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FileListBox.Location = new System.Drawing.Point(31, 161);
+            this.FileListBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.FileListBox.Multiline = true;
             this.FileListBox.Name = "FileListBox";
-            this.FileListBox.Size = new System.Drawing.Size(491, 232);
+            this.FileListBox.Size = new System.Drawing.Size(653, 74);
             this.FileListBox.TabIndex = 3;
             this.FileListBox.TextChanged += new System.EventHandler(this.FileListBox_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 7);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(41, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(325, 13);
+            this.label1.Size = new System.Drawing.Size(294, 17);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Instructions: Copy files/folders into DestinyDropbox and press Sync.";
+            this.label1.Text = "Instructions: Browse folder and press Upload.";
             // 
             // folderBrowserDialog1
             // 
@@ -87,9 +84,10 @@
             // 
             // browsefolder
             // 
-            this.browsefolder.Location = new System.Drawing.Point(677, 41);
+            this.browsefolder.Location = new System.Drawing.Point(31, 30);
+            this.browsefolder.Margin = new System.Windows.Forms.Padding(4);
             this.browsefolder.Name = "browsefolder";
-            this.browsefolder.Size = new System.Drawing.Size(75, 23);
+            this.browsefolder.Size = new System.Drawing.Size(414, 74);
             this.browsefolder.TabIndex = 5;
             this.browsefolder.Text = "Browse";
             this.browsefolder.UseVisualStyleBackColor = true;
@@ -97,18 +95,18 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 462);
+            this.ClientSize = new System.Drawing.Size(1125, 569);
             this.Controls.Add(this.browsefolder);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.FileListBox);
             this.Controls.Add(this.FileList);
             this.Controls.Add(this.Status);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "FolderSync";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

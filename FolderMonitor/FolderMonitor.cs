@@ -111,12 +111,8 @@ namespace FolderMonitor {
             return true;
         }
 
-        public bool PerformSync(String dir) {
-           
-                CopyFileRoutine(dir);
-            
-
-            newFileList.Clear();
+        public bool PerformSync(String dir) {      
+            CopyFileRoutine(dir);
             return true;
         }
 
@@ -162,45 +158,23 @@ namespace FolderMonitor {
         private void CopyFile(String fileSource, int destinationDirectoryIndex) {
             String directoryDestinationPath = directoryDestinationPathList[destinationDirectoryIndex];
             FileAttributes attr = File.GetAttributes(fileSource);
-            if (!Directory.Exists(directoryDestinationPath)) {
-                Console.WriteLine("Cannot access " + directoryDestinationPath + " Skipping.");
-                return;
+            if (attr.HasFlag(FileAttributes.Directory)) {
+                DirectoryCopy(fileSource, directoryDestinationPath, true, true);
             }
-
-            if (IsFileInRootFolder(fileSource)) {
-                if (attr.HasFlag(FileAttributes.Directory)) {
-                    DirectoryCopy(fileSource, directoryDestinationPath, true, true);
-                } else {
-                    bool fileInUse = true;
-                    while (fileInUse) {
-                        if (!isFileLocked(new FileInfo(fileSource))) {
-                            String fileName = fileSource.Substring(fileSource.LastIndexOf("\\") + 1);
-                            File.Copy(fileSource, directoryDestinationPath + fileName, true);
-                            fileInUse = false;
-                        }
-                        Console.WriteLine(fileSource + " Is locked");
+            else {
+                bool fileInUse = true;
+                while (fileInUse) {
+                    if (!isFileLocked(new FileInfo(fileSource))) {
+                        String fileName = fileSource.Substring(fileSource.LastIndexOf("\\") + 1);
+                        File.Copy(fileSource, directoryDestinationPath + fileName, true);
+                        fileInUse = false;
                     }
-
+                    Console.WriteLine(fileSource + " Is locked");
                 }
-            } else {
-                if (attr.HasFlag(FileAttributes.Directory)) {
-                    DirectoryCopy(fileSource, directoryDestinationPath, true, true);
-                } else {
-                    bool fileInUse = true;
-                    while (fileInUse) {
-                        if (!isFileLocked(new FileInfo(fileSource))) {
-                            String fileName = fileSource.Substring(fileSource.LastIndexOf("\\") + 1);
-                            File.Copy(fileSource, directoryDestinationPath + fileName, true);
-                            fileInUse = false;
-                        }
-                        Console.WriteLine(fileSource + " Is locked");
-                    }
 
-                }
-                return;
             }
-            Console.WriteLine("Copied file " + fileSource);
         }
+        
 
         /// <summary>
         /// Checks to see if a file is not in the root directory.

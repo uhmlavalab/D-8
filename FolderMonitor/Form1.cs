@@ -15,7 +15,6 @@ namespace FolderMonitor {
 
         FolderMonitor monitor;
         BackgroundWorker statusBW;
-        BackgroundWorker fileBW;
         ArrayList fileListHistory;
         DialogResult dialogResult;
 
@@ -26,45 +25,36 @@ namespace FolderMonitor {
             statusBW.WorkerSupportsCancellation = true;
             statusBW.DoWork += new DoWorkEventHandler(statusBW_DoWork);
             statusBW.ProgressChanged += new ProgressChangedEventHandler(statusBW_ProgressChanged);
-            statusBW.RunWorkerCompleted += new RunWorkerCompletedEventHandler(statusBW_RunWorkerCompleted);
-
-            fileBW = new BackgroundWorker();
-            fileBW.WorkerReportsProgress = true;
-            fileBW.DoWork += new DoWorkEventHandler(fileBW_DoWork);
+            statusBW.RunWorkerCompleted += new RunWorkerCompletedEventHandler(statusBW_RunWorkerCompleted);        
 
             FileListBox.ReadOnly = true;
             fileListHistory = new ArrayList();
 
             monitor = new FolderMonitor();
-            monitor.Run();
+            //monitor.Run();
 
             FileListBox.BackColor = Color.White;
+            folderBrowserDialog1.ShowNewFolderButton = false;
 
-
-            fileBW.RunWorkerAsync();
-            
         }
 
         private void button1_Click(object sender, EventArgs e) {
             if (!statusBW.IsBusy) {
                 button1.Enabled = false;
                 statusBW.RunWorkerAsync();
-
             }
             button1.Enabled = true;
-
         }
-
-       
 
         private void statusBW_DoWork(object sender, DoWorkEventArgs e) {
             this.UseWaitCursor = true;
             BackgroundWorker worker = sender as BackgroundWorker;
             worker.ReportProgress(0);
-            //monitor.PerformSync();
             monitor.PerformSync(folderBrowserDialog1.SelectedPath);
             this.UseWaitCursor = false;
+            FileListBoxSetText("");
         }
+
         private void statusBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             if ((e.Cancelled == true)) {
                 this.Status.Text = "Canceled!";
@@ -75,57 +65,22 @@ namespace FolderMonitor {
             }
 
             else {
-                this.Status.Text = "Status: Done. Ready for next file sync.";
+                this.Status.Text = "Status: Done. Ready for next folder upload.";
             }
         }
         private void statusBW_ProgressChanged(object sender, ProgressChangedEventArgs e) {
-            this.Status.Text = ("Syncing. Please wait.");
+            this.Status.Text = ("Uploading. Please wait.");
         }
 
-        private void fileBW_DoWork(object sender, DoWorkEventArgs e) {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            while (!worker.CancellationPending) {
-
-
-                if(dialogResult == DialogResult.OK) {
-                    ArrayList temp = new ArrayList();
-
-                    string foldername = folderBrowserDialog1.SelectedPath;
-                    foreach (string directory in Directory.GetDirectories(foldername)) {
-                        temp.Add(directory);
-
-                    }
-
-                    String list = "";
-
-                    for (int i = 0; i < temp.Count; i++) {
-                        list += temp[i].ToString();
-                        list += "\r\n";
-                    }
-                    FileListBoxSetText(list);
-                }
-
-              
-            }
-        }
-
-        delegate void SetTextCallback(string text);
+        delegate void FileListBoxSetTextCallback(string text);
         private void FileListBoxSetText(string text) {
             if (this.FileList.InvokeRequired) {
-                SetTextCallback d = new SetTextCallback(FileListBoxSetText);
+                FileListBoxSetTextCallback d = new FileListBoxSetTextCallback(FileListBoxSetText);
                 this.Invoke(d, new object[] { text });
             }
             else {
                 this.FileListBox.Text = text;
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e) {
-
-        }
-
-        private void FileList_Click(object sender, EventArgs e) {
-
         }
 
         private void FileListBox_TextChanged(object sender, EventArgs e) {
@@ -138,6 +93,11 @@ namespace FolderMonitor {
 
         private void browsefolder_Click(object sender, EventArgs e) {
             dialogResult = folderBrowserDialog1.ShowDialog();
+            if (dialogResult == DialogResult.OK) {
+                ArrayList temp = new ArrayList();
+                string foldername = folderBrowserDialog1.SelectedPath;
+                FileListBoxSetText(foldername);
+            }    
         }
     }
 
