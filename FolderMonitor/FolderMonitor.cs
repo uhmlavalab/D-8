@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace FolderMonitor {
     class FolderMonitor {
 
-        private const bool DEBUG = false;
+        private const bool DEBUG = true;
 
         private FileSystemWatcher watcher;
 
@@ -30,7 +30,7 @@ namespace FolderMonitor {
         public FolderMonitor() {
             if (DEBUG) {
                directorySourcePath = "C:\\Users\\Jack\\Desktop\\DestinyDropbox";
-               directoryDestinationPathList = new String[] { "C:\\Users\\Jack\\Desktop\\test\\" };
+               directoryDestinationPathList = new String[] { "C:\\Users\\Jack\\Desktop\\test\\", "C:\\Users\\Jack\\Desktop\\test2\\" };
             }
             else {
                 directorySourcePath = "C:\\Users\\LAVA\\Desktop\\DestinyDropbox";
@@ -106,7 +106,6 @@ namespace FolderMonitor {
             foreach(String file in newFileList) {
                 CopyFileRoutine(file);
             }
-
             newFileList.Clear();
             return true;
         }
@@ -171,7 +170,6 @@ namespace FolderMonitor {
                     }
                     Console.WriteLine(fileSource + " Is locked");
                 }
-
             }
         }
         
@@ -292,9 +290,6 @@ namespace FolderMonitor {
                 } catch (UnauthorizedAccessException) {
                     Console.WriteLine("Unable to access " + fileSource + " for deletion. Skipping.");
                 }
-
-            
-
         }
 
         /// <summary>
@@ -326,6 +321,33 @@ namespace FolderMonitor {
 
         public ArrayList getNewFileList() {
             return newFileList;
+        }
+
+        public void CleanFolders() {
+            DirectoryInfo masterDir = new DirectoryInfo(directoryDestinationPathList[0]);
+            DirectoryInfo[] masterSubDirs = masterDir.GetDirectories();
+            List<String> masterSubDirsString = new List<String>();
+
+            foreach (DirectoryInfo dir in masterSubDirs) {
+                masterSubDirsString.Add(dir.Name);
+            }
+
+            for(int i = 1; i < directoryDestinationPathList.Length; i++) {
+                DirectoryInfo childDir = new DirectoryInfo(directoryDestinationPathList[i]);
+                DirectoryInfo[] childSubDirs = childDir.GetDirectories();
+
+                List<String> childSubDirString = new List<String>();
+                foreach(DirectoryInfo dir in childSubDirs) {
+                    childSubDirString.Add(dir.Name);
+                }
+
+                List<String> removeDirs = childSubDirString.Except(masterSubDirsString).ToList();
+
+                foreach(String dir in removeDirs) {
+                    DirectoryDelete(directoryDestinationPathList[i]+ dir);
+                }
+            }
+
         }
     }
 }

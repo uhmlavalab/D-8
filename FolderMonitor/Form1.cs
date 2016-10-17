@@ -38,14 +38,6 @@ namespace FolderMonitor {
 
         }
 
-        private void upload_Click(object sender, EventArgs e) {
-            if (!statusBW.IsBusy) {
-                Upload.Enabled = false;
-                statusBW.RunWorkerAsync();
-            }
-            Upload.Enabled = true;
-        }
-
         private void statusBW_DoWork(object sender, DoWorkEventArgs e) {
             this.UseWaitCursor = true;
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -91,13 +83,30 @@ namespace FolderMonitor {
 
         }
 
-        private void browsefolder_Click(object sender, EventArgs e) {
+        private void browseFolderBtn_Click(object sender, EventArgs e) {
             dialogResult = folderBrowserDialog1.ShowDialog();
             if (dialogResult == DialogResult.OK) {
                 ArrayList temp = new ArrayList();
                 string foldername = folderBrowserDialog1.SelectedPath;
                 FileListBoxSetText(foldername);
             }    
+        }
+
+        private void uploadBtn_Click(object sender, EventArgs e) {
+            if (!statusBW.IsBusy && !String.IsNullOrWhiteSpace(folderBrowserDialog1.SelectedPath)) {
+                UploadBtn.Enabled = false;
+                statusBW.RunWorkerAsync();
+            }
+            UploadBtn.Enabled = true;
+        }
+
+        private void CleanDirBtn_Click(object sender, EventArgs e) {
+            CleanDirBtn.Enabled = false;
+            this.Status.Text = "Deleting.";
+            monitor.CleanFolders();
+            CleanDirBtn.Enabled = true;
+            this.Status.Text = "Status: Done. Ready for next folder upload.";
+
         }
     }
 
