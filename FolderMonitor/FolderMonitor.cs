@@ -347,7 +347,19 @@ namespace FolderMonitor {
                     DirectoryDelete(directoryDestinationPathList[i]+ dir);
                 }
             }
+        }
 
+        public void WriteDirectoriesToFile() {
+            DirectoryInfo masterDir = new DirectoryInfo(directoryDestinationPathList[0]);
+            DirectoryInfo[] subDirs = masterDir.GetDirectories();
+    
+            StreamWriter file = new StreamWriter("C:\\Users\\Jack\\Desktop\\test\\test.txt");
+
+            foreach (DirectoryInfo dir in subDirs) {
+                file.WriteLine(dir.Name.ToString());
+            }
+
+            file.Close();
         }
     }
 }

@@ -108,6 +108,10 @@ namespace FolderMonitor {
             this.Status.Text = "Status: Done. Ready for next folder upload.";
 
         }
+
+        private void button2_Click(object sender, EventArgs e) {
+            monitor.WriteDirectoriesToFile();
+        }
     }
 
 }
