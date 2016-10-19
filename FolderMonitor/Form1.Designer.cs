@@ -31,13 +31,12 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.browsefolderBtn = new System.Windows.Forms.Button();
             this.CleanDirBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // UploadBtn
             // 
             this.UploadBtn.Location = new System.Drawing.Point(31, 257);
-            this.UploadBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.UploadBtn.Margin = new System.Windows.Forms.Padding(4);
             this.UploadBtn.Name = "UploadBtn";
             this.UploadBtn.Size = new System.Drawing.Size(640, 57);
             this.UploadBtn.TabIndex = 0;
@@ -87,7 +86,7 @@
             // browsefolderBtn
             // 
             this.browsefolderBtn.Location = new System.Drawing.Point(31, 30);
-            this.browsefolderBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.browsefolderBtn.Margin = new System.Windows.Forms.Padding(4);
             this.browsefolderBtn.Name = "browsefolderBtn";
             this.browsefolderBtn.Size = new System.Drawing.Size(413, 74);
             this.browsefolderBtn.TabIndex = 5;
@@ -98,7 +97,7 @@
             // CleanDirBtn
             // 
             this.CleanDirBtn.Location = new System.Drawing.Point(839, 485);
-            this.CleanDirBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CleanDirBtn.Margin = new System.Windows.Forms.Padding(4);
             this.CleanDirBtn.Name = "CleanDirBtn";
             this.CleanDirBtn.Size = new System.Drawing.Size(185, 28);
             this.CleanDirBtn.TabIndex = 6;
@@ -106,22 +105,11 @@
             this.CleanDirBtn.UseVisualStyleBackColor = true;
             this.CleanDirBtn.Click += new System.EventHandler(this.CleanDirBtn_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(716, 485);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1125, 569);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.CleanDirBtn);
             this.Controls.Add(this.browsefolderBtn);
             this.Controls.Add(this.label1);
@@ -129,7 +117,7 @@
             this.Controls.Add(this.FileList);
             this.Controls.Add(this.Status);
             this.Controls.Add(this.UploadBtn);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "FolderSync";
             this.ResumeLayout(false);
@@ -147,6 +135,5 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button browsefolderBtn;
         private System.Windows.Forms.Button CleanDirBtn;
-        private System.Windows.Forms.Button button2;
     }
 }

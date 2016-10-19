@@ -31,6 +31,7 @@ namespace FolderMonitor {
             fileListHistory = new ArrayList();
 
             monitor = new FolderMonitor();
+            monitor.WriteDirectoriesToFile();
             //monitor.Run();
 
             FileListBox.BackColor = Color.White;
@@ -43,6 +44,7 @@ namespace FolderMonitor {
             BackgroundWorker worker = sender as BackgroundWorker;
             worker.ReportProgress(0);
             monitor.PerformSync(folderBrowserDialog1.SelectedPath);
+            monitor.WriteDirectoriesToFile();
             this.UseWaitCursor = false;
             FileListBoxSetText("");
         }
@@ -109,9 +111,6 @@ namespace FolderMonitor {
 
         }
 
-        private void button2_Click(object sender, EventArgs e) {
-            monitor.WriteDirectoriesToFile();
-        }
     }
 
 }
