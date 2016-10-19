@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace FolderMonitor {
     class FolderMonitor {
 
-        private const bool DEBUG = true;
+        private const bool DEBUG = false;
 
         private FileSystemWatcher watcher;
 
@@ -353,7 +353,7 @@ namespace FolderMonitor {
             DirectoryInfo masterDir = new DirectoryInfo(directoryDestinationPathList[0]);
             DirectoryInfo[] subDirs = masterDir.GetDirectories();
     
-            StreamWriter file = new StreamWriter("C:\\Users\\Jack\\Desktop\\test\\test.txt");
+            StreamWriter file = new StreamWriter(directoryDestinationPathList[0] + "fileIndex.destiny");
 
             foreach (DirectoryInfo dir in subDirs) {
                 file.WriteLine(dir.Name.ToString());
