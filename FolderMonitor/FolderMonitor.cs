@@ -34,7 +34,8 @@ namespace FolderMonitor {
             }
             else {
                 directorySourcePath = "C:\\Users\\LAVA\\Desktop\\DestinyDropbox";
-                directoryDestinationPathList = new String[]  { "Z:\\", "Y:\\", "X:\\", "W:\\", "V:\\", "U:\\", "T:\\", "S:\\" };
+                directoryDestinationPathList = new String[]  { "\\\\Kanaloa1\\Share\\", "\\\\Kanaloa2\\Share\\", "\\\\Kanaloa3\\Share\\",
+                    "\\\\Kanaloa4\\Share\\", "\\\\Kanaloa5\\Share\\", "\\\\Kanaloa6\\Share\\", "\\\\Kanaloa7\\Share\\", "\\\\Kanaloa8\\Share\\" };
             }
         }
 
