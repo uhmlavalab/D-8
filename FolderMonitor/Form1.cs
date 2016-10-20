@@ -32,11 +32,9 @@ namespace FolderMonitor {
 
             monitor = new FolderMonitor();
             monitor.WriteDirectoriesToFile();
-            //monitor.Run();
 
             FileListBox.BackColor = Color.White;
             folderBrowserDialog1.ShowNewFolderButton = false;
-
         }
 
         private void statusBW_DoWork(object sender, DoWorkEventArgs e) {
@@ -53,11 +51,9 @@ namespace FolderMonitor {
             if ((e.Cancelled == true)) {
                 this.Status.Text = "Canceled!";
             }
-
             else if (!(e.Error == null)) {
                 this.Status.Text = ("Error: " + e.Error.Message);
             }
-
             else {
                 this.Status.Text = "Status: Done. Ready for next folder upload.";
             }
@@ -108,9 +104,6 @@ namespace FolderMonitor {
             monitor.CleanFolders();
             CleanDirBtn.Enabled = true;
             this.Status.Text = "Status: Done. Ready for next folder upload.";
-
         }
-
     }
-
 }

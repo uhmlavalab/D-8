@@ -208,6 +208,10 @@ namespace FolderMonitor {
                 fullFolderName = destDirName;
             }
 
+            if (Directory.Exists(fullFolderName)) {
+                DirectoryDelete(fullFolderName);
+            }
+
             Directory.CreateDirectory(fullFolderName);
 
             // Get the files in the directory and copy them to the new location.
@@ -265,7 +269,7 @@ namespace FolderMonitor {
         /// <summary>
         /// Deletes a directory or file in the destination folder given a path from the source folder.
         /// </summary>
-        /// <param name="fileSource">Path to the file/directory.</param>
+        /// <param name="fileSource">Full Path to the file/directory.</param>
         private void DeleteFile(String fileSource, int destinationDirectoryIndex) {
             String directoryDestinationPath = directoryDestinationPathList[destinationDirectoryIndex];
 
@@ -295,7 +299,7 @@ namespace FolderMonitor {
         /// <summary>
         /// Deletes a directory and its contents.
         /// </summary>
-        /// <param name="deleteDir">Path to directory to delete.</param>
+        /// <param name="deleteDir">Full Path to directory to delete.</param>
         private void DirectoryDelete(string deleteDir) {
             DirectoryInfo dir = new DirectoryInfo(deleteDir);
 
