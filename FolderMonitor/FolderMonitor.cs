@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 /// Monitors a specified directory and copies files/folders to multiple directories.
 /// </summary>
 
-namespace FolderMonitor {
+namespace CCDestinyUploader {
     class FolderMonitor {
 
         private const bool DEBUG = false;
@@ -301,9 +301,11 @@ namespace FolderMonitor {
         /// Deletes a directory and its contents.
         /// </summary>
         /// <param name="deleteDir">Full Path to directory to delete.</param>
-        private void DirectoryDelete(string deleteDir) {
+        public void DirectoryDelete(string deleteDir) {
             DirectoryInfo dir = new DirectoryInfo(deleteDir);
-
+            if (!dir.Exists) {
+                return;
+            }
             foreach (FileInfo file in dir.GetFiles()) {
                 try {
                     if (!isFileLocked(file)) {
