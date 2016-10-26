@@ -10,13 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FolderMonitor {
+namespace CCDestinyUploader {
     public partial class Form1 : Form {
 
         FolderMonitor monitor;
         BackgroundWorker statusBW;
         ArrayList fileListHistory;
         DialogResult dialogResult;
+        private String folderDeletePath = null;
 
         public Form1() {
             InitializeComponent();
@@ -29,19 +30,23 @@ namespace FolderMonitor {
 
             FileListBox.ReadOnly = true;
             fileListHistory = new ArrayList();
+            FileDeleteBox.ReadOnly = true;
 
             monitor = new FolderMonitor();
             monitor.WriteDirectoriesToFile();
 
             FileListBox.BackColor = Color.White;
-            folderBrowserDialog1.ShowNewFolderButton = false;
+            FileDeleteBox.BackColor = Color.White;
+            browseFolderUploadDialog.ShowNewFolderButton = false;
+            browseFolderDeleteDialog.ShowNewFolderButton = false;
+            browseFolderDeleteDialog.SelectedPath = "Z:\\"; 
         }
 
         private void statusBW_DoWork(object sender, DoWorkEventArgs e) {
             this.UseWaitCursor = true;
             BackgroundWorker worker = sender as BackgroundWorker;
             worker.ReportProgress(0);
-            monitor.PerformSync(folderBrowserDialog1.SelectedPath);
+            monitor.PerformSync(browseFolderUploadDialog.SelectedPath);
             monitor.WriteDirectoriesToFile();
             this.UseWaitCursor = false;
             FileListBoxSetText("");
@@ -73,6 +78,17 @@ namespace FolderMonitor {
             }
         }
 
+        delegate void FileDeleteBoxSetTextCallback(string text);
+        private void FileDeleteBoxSetText(string text) {
+            if (this.FileList.InvokeRequired) {
+                FileDeleteBoxSetTextCallback d = new FileDeleteBoxSetTextCallback(FileDeleteBoxSetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else {
+                this.FileDeleteBox.Text = text;
+            }
+        }
+
         private void FileListBox_TextChanged(object sender, EventArgs e) {
 
         }
@@ -82,16 +98,16 @@ namespace FolderMonitor {
         }
 
         private void browseFolderBtn_Click(object sender, EventArgs e) {
-            dialogResult = folderBrowserDialog1.ShowDialog();
+            dialogResult = browseFolderUploadDialog.ShowDialog();
             if (dialogResult == DialogResult.OK) {
                 ArrayList temp = new ArrayList();
-                string foldername = folderBrowserDialog1.SelectedPath;
+                string foldername = browseFolderUploadDialog.SelectedPath;
                 FileListBoxSetText(foldername);
             }    
         }
 
         private void uploadBtn_Click(object sender, EventArgs e) {
-            if (!statusBW.IsBusy && !String.IsNullOrWhiteSpace(folderBrowserDialog1.SelectedPath)) {
+            if (!statusBW.IsBusy && !String.IsNullOrWhiteSpace(browseFolderUploadDialog.SelectedPath)) {
                 UploadBtn.Enabled = false;
                 statusBW.RunWorkerAsync();
             }
@@ -99,11 +115,32 @@ namespace FolderMonitor {
         }
 
         private void CleanDirBtn_Click(object sender, EventArgs e) {
+            if (folderDeletePath == null) {
+                return;
+            }
+            if (String.Compare(folderDeletePath.Substring(0, 3), "Z:\\") != 0) {
+                return;
+            }
+
             CleanDirBtn.Enabled = false;
             this.Status.Text = "Deleting.";
+            UseWaitCursor = true;
+            monitor.DirectoryDelete(folderDeletePath);
             monitor.CleanFolders();
             CleanDirBtn.Enabled = true;
+            UseWaitCursor = false;
             this.Status.Text = "Status: Done. Ready for next folder upload.";
+            folderDeletePath = null;
+        }
+
+        private void browseDeleteButton_Click(object sender, EventArgs e) {
+            dialogResult = browseFolderDeleteDialog.ShowDialog();
+            if (dialogResult == DialogResult.OK) {
+                ArrayList temp = new ArrayList();
+                string foldername = browseFolderDeleteDialog.SelectedPath;
+                FileDeleteBoxSetText(foldername);
+                folderDeletePath = foldername;
+            }    
         }
     }
 }

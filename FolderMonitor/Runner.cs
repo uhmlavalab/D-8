@@ -12,7 +12,7 @@ using System.Windows.Forms;
 /// Main loop of the program. Simply runs the Folder monitor class.
 /// </summary>
 
-namespace FolderMonitor {
+namespace CCDestinyUploader {
     class Runner {
 
         [STAThread]
