@@ -73,6 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="network.ico" />
+    <None Include="Resources\LAVAlogoreisze3.jpg" />
+    <None Include="Resources\arrow.png" />
+    <Content Include="Resources\LAVAlogoreisze3.png" />
+    <None Include="Resources\LAVAlogoreisze31.png" />
     <None Include="Resources\LAVAlogo-1024x656.png" />
     <None Include="Resources\logo.png" />
   </ItemGroup>
