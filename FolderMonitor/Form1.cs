@@ -130,9 +130,7 @@ namespace CCDestinyUploader {
             monitor.CleanFolders();
             CleanDirBtn.Enabled = true;
             UseWaitCursor = false;
-            this.StatusDelete.Text = "Delete Successful";
-            folderDeletePath = null;
-        }
+            this.StatusDelete.Text = "Delete Successful";        }
 
         private void browseDeleteButton_Click(object sender, EventArgs e) {
             dialogResult = browseFolderDeleteDialog.ShowDialog();
@@ -142,6 +140,10 @@ namespace CCDestinyUploader {
                 FileDeleteBoxSetText(foldername);
                 folderDeletePath = foldername;
             }    
+        }
+
+        private void label4_Click(object sender, EventArgs e) {
+
         }
     }
 }
