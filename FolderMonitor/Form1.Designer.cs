@@ -61,7 +61,7 @@
             // StatusFile
             // 
             this.StatusFile.Font = new System.Drawing.Font("Arial", 18F);
-            this.StatusFile.Location = new System.Drawing.Point(14, 553);
+            this.StatusFile.Location = new System.Drawing.Point(11, 479);
             this.StatusFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StatusFile.Name = "StatusFile";
             this.StatusFile.Size = new System.Drawing.Size(342, 38);
@@ -73,7 +73,7 @@
             // 
             this.FileListBox.Font = new System.Drawing.Font("Arial", 8F);
             this.FileListBox.Location = new System.Drawing.Point(28, 253);
-            this.FileListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FileListBox.Margin = new System.Windows.Forms.Padding(2);
             this.FileListBox.Multiline = true;
             this.FileListBox.Name = "FileListBox";
             this.FileListBox.Size = new System.Drawing.Size(307, 50);
@@ -112,7 +112,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 24F);
-            this.label3.Location = new System.Drawing.Point(127, 81);
+            this.label3.Location = new System.Drawing.Point(125, 81);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 36);
@@ -123,7 +123,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 24F);
-            this.label4.Location = new System.Drawing.Point(524, 81);
+            this.label4.Location = new System.Drawing.Point(523, 81);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(105, 36);
@@ -146,17 +146,17 @@
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.SkyBlue;
-            this.label5.Location = new System.Drawing.Point(373, 95);
+            this.label5.Location = new System.Drawing.Point(378, 88);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(10, 436);
+            this.label5.Size = new System.Drawing.Size(5, 436);
             this.label5.TabIndex = 12;
             // 
             // FileDeleteBox
             // 
             this.FileDeleteBox.Font = new System.Drawing.Font("Arial", 8F);
             this.FileDeleteBox.Location = new System.Drawing.Point(419, 253);
-            this.FileDeleteBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FileDeleteBox.Margin = new System.Windows.Forms.Padding(2);
             this.FileDeleteBox.Multiline = true;
             this.FileDeleteBox.Name = "FileDeleteBox";
             this.FileDeleteBox.Size = new System.Drawing.Size(307, 50);
@@ -176,7 +176,7 @@
             // StatusDelete
             // 
             this.StatusDelete.Font = new System.Drawing.Font("Arial", 18F);
-            this.StatusDelete.Location = new System.Drawing.Point(414, 554);
+            this.StatusDelete.Location = new System.Drawing.Point(414, 479);
             this.StatusDelete.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StatusDelete.Name = "StatusDelete";
             this.StatusDelete.Size = new System.Drawing.Size(312, 38);
@@ -190,7 +190,7 @@
             this.pictureBox1.Image = global::CCDestinyUploader.Properties.Resources.LAVAlogoreisze3;
             this.pictureBox1.ImageLocation = "";
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(311, 618);
+            this.pictureBox1.Location = new System.Drawing.Point(298, 531);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(160, 102);
@@ -200,24 +200,24 @@
             // pictureBox2
             // 
             this.pictureBox2.ErrorImage = null;
-            this.pictureBox2.Image = global::CCDestinyUploader.Properties.Resources.arrow1;
+            this.pictureBox2.Image = global::CCDestinyUploader.Properties.Resources.arrow3;
             this.pictureBox2.InitialImage = null;
-            this.pictureBox2.Location = new System.Drawing.Point(99, 126);
+            this.pictureBox2.Location = new System.Drawing.Point(104, 119);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(174, 405);
+            this.pictureBox2.Size = new System.Drawing.Size(167, 358);
             this.pictureBox2.TabIndex = 16;
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox3
             // 
             this.pictureBox3.ErrorImage = null;
-            this.pictureBox3.Image = global::CCDestinyUploader.Properties.Resources.arrow1;
+            this.pictureBox3.Image = global::CCDestinyUploader.Properties.Resources.arrow3;
             this.pictureBox3.InitialImage = null;
-            this.pictureBox3.Location = new System.Drawing.Point(497, 126);
+            this.pictureBox3.Location = new System.Drawing.Point(497, 119);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(167, 405);
+            this.pictureBox3.Size = new System.Drawing.Size(167, 358);
             this.pictureBox3.TabIndex = 17;
             this.pictureBox3.TabStop = false;
             // 
@@ -225,7 +225,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(765, 730);
+            this.ClientSize = new System.Drawing.Size(765, 644);
             this.Controls.Add(this.StatusDelete);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.FileDeleteBox);

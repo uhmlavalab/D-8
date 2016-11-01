@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace CCDestinyUploader {
     class FolderMonitor {
 
-        private const bool DEBUG = true;
+        private const bool DEBUG = false;
 
         private FileSystemWatcher watcher;
 

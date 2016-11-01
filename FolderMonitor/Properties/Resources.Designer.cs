@@ -83,6 +83,26 @@ namespace CCDestinyUploader.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrow2 {
+            get {
+                object obj = ResourceManager.GetObject("arrow2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrow3 {
+            get {
+                object obj = ResourceManager.GetObject("arrow3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LAVAlogoreisze3 {
             get {
                 object obj = ResourceManager.GetObject("LAVAlogoreisze3", resourceCulture);

@@ -41,7 +41,6 @@ namespace CCDestinyUploader {
             browseFolderDeleteDialog.ShowNewFolderButton = false;
             browseFolderDeleteDialog.SelectedPath = "Z:\\";
 
-            pictureBox2.Image = Properties.Resources.arrow;
         }
 
         private void statusBW_DoWork(object sender, DoWorkEventArgs e) {

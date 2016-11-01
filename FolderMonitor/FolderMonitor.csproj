@@ -74,6 +74,8 @@
   <ItemGroup>
     <Content Include="network.ico" />
     <None Include="Resources\arrow.png" />
+    <None Include="Resources\arrow2.png" />
+    <None Include="Resources\arrow3.png" />
     <Content Include="Resources\LAVAlogoreisze3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
