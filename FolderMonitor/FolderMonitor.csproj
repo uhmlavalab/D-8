@@ -35,7 +35,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>network.ico</ApplicationIcon>
+    <ApplicationIcon>Content-Icon-300x300.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -72,6 +72,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content-Icon-300x300.ico" />
     <Content Include="network.ico" />
     <None Include="Resources\arrow.png" />
     <None Include="Resources\arrow2.png" />
