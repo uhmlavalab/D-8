@@ -35,7 +35,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>network.ico</ApplicationIcon>
+    <ApplicationIcon>Content-Icon-300x300.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -56,9 +56,6 @@
     <Compile Include="Runner.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Emgu.CV.UI">
-      <HintPath>..\..\NetKinect\NetKinect\Emgu.CV.UI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -75,9 +72,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content-Icon-300x300.ico" />
     <Content Include="network.ico" />
-    <None Include="Resources\LAVAlogo-1024x656.png" />
-    <None Include="Resources\logo.png" />
+    <None Include="Resources\arrow.png" />
+    <None Include="Resources\arrow2.png" />
+    <None Include="Resources\arrow3.png" />
+    <Content Include="Resources\LAVAlogoreisze3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

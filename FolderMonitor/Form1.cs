@@ -39,7 +39,8 @@ namespace CCDestinyUploader {
             FileDeleteBox.BackColor = Color.White;
             browseFolderUploadDialog.ShowNewFolderButton = false;
             browseFolderDeleteDialog.ShowNewFolderButton = false;
-            browseFolderDeleteDialog.SelectedPath = "Z:\\"; 
+            browseFolderDeleteDialog.SelectedPath = "Z:\\";
+
         }
 
         private void statusBW_DoWork(object sender, DoWorkEventArgs e) {
@@ -49,27 +50,26 @@ namespace CCDestinyUploader {
             monitor.PerformSync(browseFolderUploadDialog.SelectedPath);
             monitor.WriteDirectoriesToFile();
             this.UseWaitCursor = false;
-            FileListBoxSetText("");
         }
 
         private void statusBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             if ((e.Cancelled == true)) {
-                this.Status.Text = "Canceled!";
+                this.StatusFile.Text = "Canceled!";
             }
             else if (!(e.Error == null)) {
-                this.Status.Text = ("Error: " + e.Error.Message);
+                this.StatusFile.Text = ("Error: " + e.Error.Message);
             }
             else {
-                this.Status.Text = "Status: Done. Ready for next folder upload.";
+                this.StatusFile.Text = "Upload Successful";
             }
         }
         private void statusBW_ProgressChanged(object sender, ProgressChangedEventArgs e) {
-            this.Status.Text = ("Uploading. Please wait.");
+            this.StatusFile.Text = ("Uploading. Please wait.");
         }
 
         delegate void FileListBoxSetTextCallback(string text);
         private void FileListBoxSetText(string text) {
-            if (this.FileList.InvokeRequired) {
+            if (this.FileListBox.InvokeRequired) {
                 FileListBoxSetTextCallback d = new FileListBoxSetTextCallback(FileListBoxSetText);
                 this.Invoke(d, new object[] { text });
             }
@@ -80,7 +80,7 @@ namespace CCDestinyUploader {
 
         delegate void FileDeleteBoxSetTextCallback(string text);
         private void FileDeleteBoxSetText(string text) {
-            if (this.FileList.InvokeRequired) {
+            if (this.FileDeleteBox.InvokeRequired) {
                 FileDeleteBoxSetTextCallback d = new FileDeleteBoxSetTextCallback(FileDeleteBoxSetText);
                 this.Invoke(d, new object[] { text });
             }
@@ -123,15 +123,13 @@ namespace CCDestinyUploader {
             }
 
             CleanDirBtn.Enabled = false;
-            this.Status.Text = "Deleting.";
+            this.StatusDelete.Text = "Deleting.";
             UseWaitCursor = true;
             monitor.DirectoryDelete(folderDeletePath);
             monitor.CleanFolders();
             CleanDirBtn.Enabled = true;
             UseWaitCursor = false;
-            this.Status.Text = "Status: Done. Ready for next folder upload.";
-            folderDeletePath = null;
-        }
+            this.StatusDelete.Text = "Delete Successful";        }
 
         private void browseDeleteButton_Click(object sender, EventArgs e) {
             dialogResult = browseFolderDeleteDialog.ShowDialog();
@@ -141,6 +139,10 @@ namespace CCDestinyUploader {
                 FileDeleteBoxSetText(foldername);
                 folderDeletePath = foldername;
             }    
+        }
+
+        private void label4_Click(object sender, EventArgs e) {
+
         }
     }
 }
